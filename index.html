@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scania Dsilva | Data Analyst Portfolio</title>
+  <style>
+    :root {
+      --primary: #2f7df6;
+      --primary-dark: #0a1f44;
+      --primary-soft: #5aa0ff;
+      --accent: #102b57;
+      --accent-strong: #16386e;
+      --text: #e8f1ff;
+      --muted: #b7c8e6;
+      --surface: rgba(13, 32, 68, 0.88);
+      --surface-strong: rgba(9, 25, 55, 0.96);
+      --background: #061226;
+      --border: rgba(102, 152, 235, 0.28);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      --shadow-soft: 0 12px 28px rgba(0, 0, 0, 0.22);
+      --radius: 20px;
+      --nav-height: 72px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(72, 132, 255, 0.16), transparent 22%),
+        radial-gradient(circle at top right, rgba(23, 68, 140, 0.22), transparent 26%),
+        linear-gradient(180deg, #061226 0%, #081935 50%, #04101f 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .site-header {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #071a39 0%, #0d2c5d 45%, #124487 100%);
+      color: #ffffff;
+      padding: 5.5rem 1.5rem 4.75rem;
+      border-bottom: 1px solid rgba(118, 170, 255, 0.18);
+    }
+
+    .site-header::before,
+    .site-header::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(120, 174, 255, 0.12);
+    }
+
+    .site-header::before {
+      width: 280px;
+      height: 280px;
+      top: -90px;
+      right: -60px;
+    }
+
+    .site-header::after {
+      width: 180px;
+      height: 180px;
+      bottom: -70px;
+      left: -40px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-copy {
+      text-align: left;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      margin-bottom: 1rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(110, 166, 255, 0.12);
+      border: 1px solid rgba(145, 190, 255, 0.2);
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .site-header h1 {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      margin-bottom: 0.85rem;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .site-header p {
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      opacity: 0.95;
+    }
+
+    .hero-summary {
+      max-width: 620px;
+      margin-top: 1.2rem;
+      font-size: 1.05rem;
+      color: rgba(232, 241, 255, 0.84);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      padding: 1.2rem;
+      border-radius: 18px;
+      background: rgba(11, 37, 78, 0.72);
+      border: 1px solid rgba(126, 175, 255, 0.18);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 14px 28px rgba(2, 9, 24, 0.26);
+      text-align: left;
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0.45rem;
+    }
+
+    .metric-card span {
+      font-size: 0.95rem;
+      color: rgba(224, 236, 255, 0.8);
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(6, 18, 38, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(109, 164, 255, 0.16);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      min-height: var(--nav-height);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      color: #dce9ff;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      background: rgba(70, 127, 217, 0.18);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    main {
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      padding: 2.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      scroll-margin-top: calc(var(--nav-height) + 24px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #cfe1ff;
+      background: rgba(47, 125, 246, 0.16);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(117, 169, 255, 0.15);
+    }
+
+    .section h2 {
+      color: var(--primary);
+      font-size: 1.95rem;
+    }
+
+    .section p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .info-panel {
+      padding: 1.4rem;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(19, 48, 95, 0.85) 0%, rgba(13, 35, 71, 0.95) 100%);
+      border: 1px solid var(--border);
+    }
+
+    .info-panel h3 {
+      color: var(--primary);
+      margin-bottom: 0.6rem;
+      font-size: 1.05rem;
+    }
+
+    .info-panel p {
+      font-size: 0.96rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(18, 43, 86, 0.96) 0%, rgba(11, 28, 58, 0.98) 100%);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border: 1px solid rgba(109, 160, 244, 0.16);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #4e97ff 0%, #9bc4ff 100%);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.32);
+    }
+
+    .project-card h3 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tech-stack {
+      display: inline-flex;
+      margin-bottom: 0.9rem;
+      padding: 0.45rem 0.8rem;
+      background: rgba(47, 125, 246, 0.16);
+      color: #d7e8ff;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid rgba(122, 171, 255, 0.14);
+    }
+
+    .dashboard-placeholder {
+      min-height: 180px;
+      margin-top: 1.2rem;
+      border: 2px dashed rgba(137, 182, 255, 0.5);
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(17, 44, 89, 0.95) 0%, rgba(10, 28, 57, 0.98) 100%);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #cfe1ff;
+      font-weight: 700;
+      padding: 1rem;
+    }
+    .dashboard-image img {
+  width: 100%;
+  border-radius: 12px;
+  margin-top: 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
+}
+
+.dashboard-image img:hover {
+  transform: scale(1.03);
+}
+
+    .skills-list {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      color: var(--muted);
+    }
+
+    .skills-list li {
+      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(17, 42, 83, 0.95) 0%, rgba(10, 28, 57, 0.98) 100%);
+      border: 1px solid rgba(105, 157, 241, 0.15);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      font-weight: 700;
+      position: relative;
+      padding-left: 2.5rem;
+    }
+
+    .skills-list li::before {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #66a7ff;
+      transform: translateY(-50%);
+      box-shadow: 0 0 0 6px rgba(74, 132, 225, 0.12);
+    }
+
+    .contact-links {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .contact-links a,
+    .contact-links span {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      background: rgba(16, 40, 80, 0.92);
+      border: 1px solid rgba(105, 157, 241, 0.16);
+      color: var(--muted);
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+    }
+
+    .contact-links a:hover {
+      color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1.75rem 1rem 2.2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .site-header {
+        padding: 4.6rem 1rem 3.8rem;
+      }
+
+      .hero,
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 2rem 1.25rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-inner {
+        padding: 0.75rem 1rem;
+      }
+
+      .nav-links {
+        gap: 0.5rem;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-summary {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .skills-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section h2 {
+        font-size: 1.55rem;
+      }
+
+      .dashboard-placeholder {
+        min-height: 150px;
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links a {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.92rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="home">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Portfolio</span>
+        <h1>Scania Dsilva</h1>
+        <p>Data Analyst | SQL | Power BI | Excel</p>
+        <p class="hero-summary">
+          I turn business data into dashboards, reports, and insights that help teams track performance, identify
+          trends, and make better decisions with confidence.
+        </p>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric-card">
+          <strong>SQL</strong>
+          <span>Querying and transforming structured business data</span>
+        </div>
+        <div class="metric-card">
+          <strong>Power BI</strong>
+          <span>Interactive dashboards built for clarity and action</span>
+        </div>
+        <div class="metric-card">
+          <strong>Excel</strong>
+          <span>Analysis, reporting, and business-friendly models</span>
+        </div>
+        <div class="metric-card">
+          <strong>Python</strong>
+          <span>Data cleaning and analysis with Pandas and NumPy</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section reveal">
+      <div class="section-header">
+        <h2>Home</h2>
+        <span class="section-tag">Introduction</span>
+      </div>
+      <div class="intro-grid">
+        <p>
+          I am a data analyst focused on transforming raw business data into clear, actionable insights using SQL,
+          Power BI, and Excel. I enjoy building reports and dashboards that help teams understand performance, spot
+          trends, and make smarter decisions.
+        </p>
+        <div class="info-panel">
+          <h3>What I focus on</h3>
+          <p>
+            Clean analysis, practical dashboards, and business insights that are easy to understand and useful in
+            real decision-making.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="about">
+      <div class="section-header">
+        <h2>About</h2>
+        <span class="section-tag">Profile</span>
+      </div>
+      <p>
+        I specialize in analyzing business data to uncover patterns, measure performance, and support strategic
+        decisions. From cleaning and structuring datasets to building dashboards and presenting insights, I aim to
+        turn complex information into practical recommendations that create real business value.
+      </p>
+    </section>
+
+    <section class="section reveal" id="projects">
+      <div class="section-header">
+        <h2>Projects</h2>
+        <span class="section-tag">Selected Work</span>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <h3>FMCG Sales &amp; Customer Insights Analysis</h3>
+          <span class="tech-stack">SQL (SQLite), Power BI, Excel</span>
+          <p>
+            Analyzed sales data, identified customer and product trends, and built a dashboard to present performance
+            insights in a clear and decision-ready format.
+          </p>
+          <div class="dashboard-image">
+          <img src="photos/fmcg.jpeg" alt="FMCG Dashboard">
+           </div>
+        </article>
+
+        <article class="project-card">
+          <h3>Retail Demand Forecasting (ForecastFlow)</h3>
+          <span class="tech-stack">Azure, Databricks, Power BI</span>
+          <p>
+            Built a forecasting system and dashboards to support inventory planning, demand visibility, and improved
+            retail decision-making across key metrics.
+          </p>
+          <div class="dashboard-image">
+          <img src="photos/forecast.jpeg" alt="Forecast Dashboard">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="skills">
+      <div class="section-header">
+        <h2>Skills</h2>
+        <span class="section-tag">Toolkit</span>
+      </div>
+      <ul class="skills-list">
+        <li>SQL (MySQL, SQLite)</li>
+        <li>Power BI</li>
+        <li>Microsoft Excel</li>
+        <li>Python (Pandas, NumPy)</li>
+      </ul>
+    </section>
+
+    <section class="section reveal" id="contact">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <span class="section-tag">Let's Connect</span>
+      </div>
+      <p>
+        I'm open to opportunities where I can contribute through thoughtful analysis, reporting, and dashboard
+        development.
+      </p>
+      <div class="contact-links">
+        <span>Email: scaniadsilva@gmail.com</span>
+        <a href="https://www.linkedin.com/in/scania-dsilva-053a48288/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Scania Dsilva. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      revealElements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) {
+          element.classList.add('visible');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
